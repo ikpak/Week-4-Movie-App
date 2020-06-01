@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from 'react'
-import ReactModal from 'react-modal'
+import React, { useEffect, useState } from 'react'
 import './App.css';
 import MovieList from './components/MovieList'
 import Navigation from './components/Navigation'
@@ -8,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 import Loader from 'react-loader-spinner'
 
+
 const apiKey = process.env.REACT_APP_APIKEY
 
 function App() {
@@ -15,11 +15,11 @@ function App() {
   let [originalList, setOriginalList] = useState(null)
   let [upcomingMovieList, setUpcomingMovieList] = useState(null)
   let [genreList, setGenreList] = useState(null)
-  let [modalOpen, setModalOpen] = useState(false)
+ 
 
   let page = 1
 
-  const getPlayingNowMovies = async() => {
+  const getPlayingNowMovies = async () => {
     let url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=en-US`
     let data = await fetch(url)
     let result = await data.json()
@@ -28,16 +28,16 @@ function App() {
     setOriginalList(result.results)
   }
 
-  const getUpcomingMovies = async() => {
+  const getUpcomingMovies = async () => {
     let url = `https://api.themoviedb.org/3/movie/upcoming?api_key=${apiKey}&language=en-US&page=${page}`
     let data = await fetch(url)
-    let result = await data.json() 
+    let result = await data.json()
 
     setUpcomingMovieList(result.results)
     console.log("Latest Movies:", result)
   }
 
-  const getGenreList = async() => {
+  const getGenreList = async () => {
     let url = `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US&page=${page}`
     let data = await fetch(url)
     let result = await data.json()
@@ -49,24 +49,22 @@ function App() {
   }
 
   const searchTheKeyword = (keyword) => {
-    if(keyword === '') {
+    if (keyword === '') {
       setMovieList(originalList)
       return
     }
-    
+
     let filteredList = movieList.filter(movie => movie.title.toLowerCase().includes(keyword.toLowerCase()))
     setMovieList(filteredList)
   }
 
-  const openModal = () => {
-
-  }
+  
 
   useEffect(() => {
     getGenreList()
   }, [])
 
-  if(genreList === null || movieList === null) {
+  if (genreList === null || movieList === null) {
     return (<Loader
       className="loader"
       type="TailSpin"
@@ -76,7 +74,7 @@ function App() {
       timeout={3000}
     />)
   }
-
+ 
   return (
     <div>
       <Navigation searchTheKeyword={searchTheKeyword} />
@@ -88,8 +86,8 @@ function App() {
       <div className="container cardContainer">
         <h2>Latest Movies</h2>
         <MovieList movieList={movieList} genresFromApp={genreList} />
-        <ReactModal>
-        </ReactModal>
+     
+       
       </div>
     </div>
   )
