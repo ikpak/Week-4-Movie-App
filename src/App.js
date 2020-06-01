@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import ReactModal from 'react-modal'
 import './App.css';
 import MovieList from './components/MovieList'
 import Navigation from './components/Navigation'
@@ -14,11 +15,12 @@ function App() {
   let [originalList, setOriginalList] = useState(null)
   let [upcomingMovieList, setUpcomingMovieList] = useState(null)
   let [genreList, setGenreList] = useState(null)
+  let [modalOpen, setModalOpen] = useState(false)
 
   let page = 1
 
   const getPlayingNowMovies = async() => {
-    let url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=en-US&page=1`
+    let url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=en-US`
     let data = await fetch(url)
     let result = await data.json()
 
@@ -56,7 +58,9 @@ function App() {
     setMovieList(filteredList)
   }
 
-  
+  const openModal = () => {
+
+  }
 
   useEffect(() => {
     getGenreList()
@@ -84,6 +88,8 @@ function App() {
       <div className="container cardContainer">
         <h2>Latest Movies</h2>
         <MovieList movieList={movieList} genresFromApp={genreList} />
+        <ReactModal>
+        </ReactModal>
       </div>
     </div>
   )

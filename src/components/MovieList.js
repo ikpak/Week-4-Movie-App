@@ -10,7 +10,7 @@ export default function MovieList(props) {
     return (
         <Row>
             {props.movieList.map(item => {
-                return <Col className="cards" lg="3" xs="12"><MovieCard movie={item} genresFromMovieList={props.genresFromApp} /></Col>
+                return <Col className="cards" lg="3" xs="12"><MovieCard movie={item} genresFromMovieList={props.genresFromApp} openModal={props.openModal} /></Col>
             })}
         </Row>
     )

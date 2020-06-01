@@ -6,7 +6,7 @@ export default function MovieCard(props) {
     let genres = props.genresFromMovieList
 
     return (
-        <Card className="card" style={{width: "14rem"}}>
+        <Card className="card" style={{width: "14rem"}} onCLick={() => props.openModal()}>
             <Card.Img className="cardImg" variant="top" src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`} />
             <Card.Body className="cardBody">
                 <Card.Text className="rating">Rating: {movie.vote_average}</Card.Text>
